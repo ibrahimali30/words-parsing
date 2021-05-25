@@ -7,5 +7,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class WordsUiModel(
     @PrimaryKey(autoGenerate = true)
-    var id: Int
+    var id: Int = 0,
+    var word: String = "0",
+    var count: Int = 0,
 )

@@ -15,9 +15,24 @@ class WordsRepositoryImpl @Inject constructor(
 
     override fun fetchWords(): Single<List<WordsUiModel>> {
         return wordsRemoteDataSource.fetchWords()
-                .map {
-                    // TODO: 5/25/2021 map to list of WordsUiModel
-                    null
+                .map { it ->
+                    val regex = Regex("[^a-zA-Zء-ي0-9]")
+                    var text = it.string().toString()
+                        .replace(regex, " ")//remove Skip special characters
+                        .replace("\\s+".toRegex(), " ") //remove all spaces
+                        .trim()
+
+                    val map = hashMapOf<String, Int>()
+                    text.split(" ")
+                        .forEach {
+                            map[it] = map[it] ?: 1 + 1
+                    }
+
+                    val v = map.map {
+                        WordsUiModel(word = it.key, count = it.value)
+                    }
+
+                    return@map v
                 }
     }
 
