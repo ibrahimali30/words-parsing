@@ -23,7 +23,7 @@ class WordsRepositoryImpl @Inject constructor(
                         .replace("\\s+".toRegex(), " ") //remove all spaces
                         .trim()
 
-                    val wordsMap = hashMapOf<String, Int>()
+                    val wordsMap = linkedMapOf<String, Int>()
                     htmlString.split(" ")
                         .forEach {
                             wordsMap[it] = (wordsMap[it] ?: 1) + 1

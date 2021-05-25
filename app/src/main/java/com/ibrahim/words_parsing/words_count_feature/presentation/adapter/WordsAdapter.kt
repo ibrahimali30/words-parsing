@@ -47,7 +47,8 @@ class WordsAdapter(val data: ArrayList<WordsUiModel> = java.util.ArrayList()) :
 
         @SuppressLint("CheckResult")
         fun bind(model: WordsUiModel) {
-            view.tvWordTitle.text = model.word +"  "+ model.count
+            view.tvWordTitle.text = model.word
+            view.tvWordCount.text = model.count.toString()
 
         }
     }
