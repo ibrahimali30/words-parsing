@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 
 class WordsViewModel @Inject constructor(
-        private val placesUseCase: GetWordsUseCase
+        private val wordsUseCase: GetWordsUseCase
 ): ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
@@ -21,7 +21,7 @@ class WordsViewModel @Inject constructor(
 
     fun getWords() {
         screenState.value = WordsScreenState.Loading
-        placesUseCase.fetchWords()
+        wordsUseCase.fetchWords()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -34,7 +34,7 @@ class WordsViewModel @Inject constructor(
     private fun getCashedWords() {
         screenState.value = WordsScreenState.Loading
 
-        placesUseCase.getWordsFromLocalDB()
+        wordsUseCase.getWordsFromLocalDB()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -53,7 +53,7 @@ class WordsViewModel @Inject constructor(
     }
 
     private fun handleErrorLoadingFromLocal(it: Throwable) {
-        screenState.value =WordsScreenState.ErrorLoadingFromLocal(it)
+        screenState.value = WordsScreenState.ErrorLoadingFromLocal(it)
     }
 
     private fun handleErrorLoadingFromRemote(it: Throwable) {

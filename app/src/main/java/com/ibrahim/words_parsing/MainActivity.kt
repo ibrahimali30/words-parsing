@@ -10,6 +10,7 @@ import com.ibrahim.words_parsing.words_count_feature.presentation.adapter.WordsA
 import com.ibrahim.words_parsing.words_count_feature.presentation.viewmodel.WordsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_error_view.view.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -43,12 +44,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onScreenStateChanged(state: WordsViewModel.WordsScreenState?) {
-//        handleErrorViewsVisibility(state)
+        handleErrorViewsVisibility(state is WordsViewModel.WordsScreenState.ErrorLoadingFromLocal)
         handleLoadingVisibility(state == WordsViewModel.WordsScreenState.Loading)
 
         when (state) {
             is WordsViewModel.WordsScreenState.SuccessAPIResponse -> handleSuccess(state.data)
-//            is WordsViewModel.WordsScreenState.ErrorLoadingFromLocal -> handleError(state.error)
+            is WordsViewModel.WordsScreenState.ErrorLoadingFromLocal -> handleError(state.error)
             is WordsViewModel.WordsScreenState.SuccessLocalResponse ->{
                 handleSuccess(state.data)
             }
@@ -56,8 +57,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun handleErrorViewsVisibility(show: Boolean) {
+        errorViewLayout.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    private fun handleError(error: Throwable) {
+        errorViewLayout.btRetry.setOnClickListener {
+            wordsViewModel.getWords()
+        }
+    }
+
     private fun handleLoadingVisibility(show: Boolean) {
-        progressBar.visibility = if (show && adapter.data.isEmpty()) View.VISIBLE else View.GONE
+        progressBar.visibility = if (show) View.VISIBLE else View.GONE
     }
 
 

@@ -18,8 +18,8 @@ class WordsModule {
 
 
     @Provides
-    fun providesWordsRepository(placesRepositoryImpl: WordsRepositoryImpl): WordsRepository {
-        return placesRepositoryImpl
+    fun providesWordsRepository(wordsRepositoryImpl: WordsRepositoryImpl): WordsRepository {
+        return wordsRepositoryImpl
     }
 
     @Provides
@@ -29,7 +29,7 @@ class WordsModule {
 
     @Provides
     fun providesWordsDao(WeatherDatabase: AppDatabase): WordsDao {
-        return WeatherDatabase.placesDao()
+        return WeatherDatabase.wordsDao()
     }
 
 

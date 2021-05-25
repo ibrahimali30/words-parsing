@@ -9,12 +9,12 @@ import com.ibrahim.words_parsing.words_count_feature.domain.entity.WordsUiModel
     entities = [
         WordsUiModel::class
     ],
-    version = 1 , exportSchema = false
+    version = 2 , exportSchema = false
 )
 
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun placesDao(): WordsDao
+    abstract fun wordsDao(): WordsDao
 
 }
 

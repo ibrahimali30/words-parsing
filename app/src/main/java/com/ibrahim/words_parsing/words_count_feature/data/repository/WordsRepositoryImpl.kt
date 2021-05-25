@@ -15,28 +15,25 @@ class WordsRepositoryImpl @Inject constructor(
 
     override fun fetchWords(): Single<List<WordsUiModel>> {
         return wordsRemoteDataSource.fetchWords()
-                .map { it ->
+                //map html response to counted words
+                .map { responseBody ->
                     val regex = Regex("[^a-zA-Zء-ي0-9]")
-                    var text = it.string().toString()
-                        .replace(regex, " ")//remove Skip special characters
+                    val htmlString = responseBody.string().toString()
+                        .replace(regex, " ") //remove Skip special characters
                         .replace("\\s+".toRegex(), " ") //remove all spaces
                         .trim()
 
-                    val map = hashMapOf<String, Int>()
-                    text.split(" ")
+                    val wordsMap = hashMapOf<String, Int>()
+                    htmlString.split(" ")
                         .forEach {
-                            if (map.containsKey(it)){
-                                map[it] = map[it]!! + 1
-                            }else {
-                                map[it] = 1
-                            }
+                            wordsMap[it] = (wordsMap[it] ?: 1) + 1
                     }
 
-                    val v = map.map {
+                    return@map wordsMap.map {
                         WordsUiModel(word = it.key, count = it.value)
+                    }.also {
+                        insertWordsIntoLocalDB(it)
                     }
-
-                    return@map v
                 }
     }
 

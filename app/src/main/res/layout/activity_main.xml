@@ -44,14 +44,14 @@
     </LinearLayout>
 
 
-<!--    <include-->
-<!--        android:id="@+id/errorViewLayout"-->
-<!--        layout="@layout/layout_error_view"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:visibility="gone"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"-->
-<!--        tools:visibility="visible" />-->
+    <include
+        android:id="@+id/errorViewLayout"
+        layout="@layout/layout_error_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rvWords"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
