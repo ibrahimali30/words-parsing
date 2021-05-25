@@ -25,7 +25,11 @@ class WordsRepositoryImpl @Inject constructor(
                     val map = hashMapOf<String, Int>()
                     text.split(" ")
                         .forEach {
-                            map[it] = map[it] ?: 1 + 1
+                            if (map.containsKey(it)){
+                                map[it] = map[it]!! + 1
+                            }else {
+                                map[it] = 1
+                            }
                     }
 
                     val v = map.map {
