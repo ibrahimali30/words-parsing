@@ -11,7 +11,7 @@ interface WordsDao {
     fun insertWordsUiModel(words: List<WordsUiModel>)
 
     @Query("select * from WordsUiModel")
-    fun getWordsByCityName(): List<WordsUiModel>
+    fun getWordsFromLocalDB(): List<WordsUiModel>
 
     @Query("delete from WordsUiModel")
     fun deleteAllWords()

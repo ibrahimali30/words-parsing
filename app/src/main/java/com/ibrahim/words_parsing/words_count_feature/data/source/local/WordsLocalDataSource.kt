@@ -10,9 +10,9 @@ class WordsLocalDataSource @Inject constructor(
     private val wordsDao: WordsDao
 ) {
 
-    fun getWordsByCityName(): Single<List<WordsUiModel>> {
+    fun getWordsFromLocalDB(): Single<List<WordsUiModel>> {
         return Single.fromCallable {
-            wordsDao.getWordsByCityName()
+            wordsDao.getWordsFromLocalDB()
         }
     }
 
